@@ -7,7 +7,9 @@ namespace PlayerInput
         public MouseKeyboardInputSettings mouseKeyboardInputSettings;
     
         private int FireMouseButtonKey => mouseKeyboardInputSettings.fireMouseButtonKey;
-        private KeyCode InteractButtonKeyCode => mouseKeyboardInputSettings.interactButtonKeyCode;
+        private KeyCode InteractKeyCode => mouseKeyboardInputSettings.interactKeyCode;
+        private KeyCode InventorySwipeRightKeyCode => mouseKeyboardInputSettings.inventorySwipeRightKeyCode;
+        private KeyCode InventorySwipeLeftKeyCode => mouseKeyboardInputSettings.inventorySwipeLeftKeyCode;
     
         private Vector2 _moveVector;
 
@@ -16,8 +18,14 @@ namespace PlayerInput
             InteractButtonTick();
             FireButtonsTick();
             MoveVectorTick();
+            InventoryKeysTick();
         }
 
+        private void InventoryKeysTick()
+        {
+            if (Input.GetKeyDown(InventorySwipeLeftKeyCode)) InventoryKeyPressedInvoke(InventoryAction.SwipeLeft);
+            if (Input.GetKeyDown(InventorySwipeRightKeyCode)) InventoryKeyPressedInvoke(InventoryAction.SwipeRight);
+        }
 
         private void MoveVectorTick()
         {
@@ -28,27 +36,18 @@ namespace PlayerInput
 
         private void InteractButtonTick()
         {
-            if (Input.GetKeyDown(InteractButtonKeyCode))
-            {
-                InteractButtonPressedInvoke();
-            }
+            if (Input.GetKeyDown(InteractKeyCode)) InteractButtonPressedInvoke();
         }
 
         private void FireButtonsTick()
         {
             IsFirePressed = Input.GetMouseButtonDown(FireMouseButtonKey);
-            if (IsFirePressed)
-            {
-                FireButtonPressedInvoke();
-            }
+            if (IsFirePressed) FireButtonPressedInvoke();
 
             IsFireHold = Input.GetMouseButton(FireMouseButtonKey);
 
             IsFireReleased = Input.GetMouseButtonUp(FireMouseButtonKey);
-            if (IsFireReleased)
-            {
-                FireButtonReleasedInvoke();
-            }
+            if (IsFireReleased) FireButtonReleasedInvoke();
         }
     }
 }

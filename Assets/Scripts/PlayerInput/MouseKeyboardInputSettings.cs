@@ -6,6 +6,8 @@ namespace PlayerInput
     public class MouseKeyboardInputSettings : ScriptableObject
     {
         public int fireMouseButtonKey = 0;
-        public KeyCode interactButtonKeyCode = KeyCode.E;
+        public KeyCode interactKeyCode = KeyCode.E;
+        public KeyCode inventorySwipeLeftKeyCode = KeyCode.LeftArrow;
+        public KeyCode inventorySwipeRightKeyCode = KeyCode.RightArrow;
     }
 }
