@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f7b92b1b42b4318af4973e14dd960ec, type: 3}
+  m_Name: BallisticTrajectory
+  m_EditorClassIdentifier: 
+  constants: {fileID: 11400000, guid: adc386de3a55b5149b5cdc858b1773ee, type: 2}
