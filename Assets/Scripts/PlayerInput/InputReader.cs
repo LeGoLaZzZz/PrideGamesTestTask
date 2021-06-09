@@ -37,6 +37,21 @@ namespace PlayerInput
 
     public abstract class InputReader : MonoBehaviour
     {
+        private static InputReader _instance = null;
+        public static InputReader Instance
+        {
+            get
+            {
+                if (_instance == null) _instance = (InputReader) FindObjectOfType(typeof(InputReader));
+
+#if PLATFORM_STANDALONE
+                if (_instance == null) _instance = new GameObject("InputReader").AddComponent<MouseKeyboardInput>();
+#endif
+
+                return _instance;
+            }
+        }
+
         public static FireButtonPressedEvent FireButtonPressedEvent = new FireButtonPressedEvent();
         public static FireButtonReleasedEvent FireButtonReleasedEvent = new FireButtonReleasedEvent();
 
@@ -48,6 +63,8 @@ namespace PlayerInput
         public bool IsFireHold { get; protected set; }
         public bool IsFirePressed { get; protected set; }
         public bool IsFireReleased { get; protected set; }
+
+        public Vector2 ViewRotation { get; protected set; }
 
         protected void FireButtonPressedInvoke()
         {
