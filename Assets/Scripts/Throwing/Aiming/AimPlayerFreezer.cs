@@ -5,10 +5,14 @@ namespace Throwing
 {
     public class AimPlayerFreezer : MonoBehaviour
     {
+        [Header("Settings")]
+        public bool needFreezeMovement = true;
+        public bool needFreezeCameraRotation = false;
         [Header("Aim events")]
         [SerializeField] private AimingEventsChanel aimingEventsChanel;
-        [Header("Systems to freeze on Aim")]
+        [Header("Links")]
         [SerializeField] private PlayerMovement playerMovement;
+        [SerializeField] private PlayerViewRotation playerViewRotation;
 
         private void OnEnable()
         {
@@ -25,12 +29,14 @@ namespace Throwing
 
         private void OnAimingStarted()
         {
-            playerMovement.StopMovement();
+            if (needFreezeMovement) playerMovement.StopMovement();
+            if (needFreezeCameraRotation) playerViewRotation.StopRotation();
         }
 
         private void OnAimingStopped()
         {
-            playerMovement.StartMovement();
+            if (needFreezeMovement) playerMovement.StartMovement();
+            if (needFreezeCameraRotation) playerViewRotation.StartRotation();
         }
     }
 }

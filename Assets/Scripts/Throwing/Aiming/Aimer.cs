@@ -9,7 +9,6 @@ namespace Throwing
     public class Aimer : MonoBehaviour
     {
         [Header("Settings")]
-        public float initialSpeed = 5f;
         public TrajectoryFormula trajectoryFormula;
         public bool isAiming;
 
@@ -54,7 +53,8 @@ namespace Throwing
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            UnityEditor.Handles.ArrowHandleCap(GUIUtility.GetControlID(FocusType.Keyboard), projectileSpawnPoint.position,
+            UnityEditor.Handles.ArrowHandleCap(GUIUtility.GetControlID(FocusType.Keyboard),
+                projectileSpawnPoint.position,
                 Quaternion.LookRotation(directionPoint.forward), 1, EventType.Repaint);
         }
 #endif

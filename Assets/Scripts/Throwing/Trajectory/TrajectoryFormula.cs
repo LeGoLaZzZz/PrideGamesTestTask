@@ -6,6 +6,9 @@ namespace Throwing.Trajectory
     {
         [SerializeField] protected ThrowConstants constants;
 
-        public abstract Vector3 GetPosition(Vector3 direction, float speed, Vector3 startPoint, float timeMoment);
+        public abstract Vector3 GetPosition(Vector3 direction, Vector3 startPoint, float timeMoment);
+        public abstract float GetMaxHigh(Vector3 direction, Vector3 startPoint);
+        public abstract float GetMaxRange(Vector3 direction, Vector3 startPoint);
+        
     }
 }

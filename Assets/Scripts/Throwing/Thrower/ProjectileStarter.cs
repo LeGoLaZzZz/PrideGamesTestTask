@@ -8,7 +8,7 @@ namespace Throwing
         public void StartProjectile(ProjectileThrowSettings settings)
         {
             var projectile = InstantiateProjectile(settings.prefab, settings.startPosition);
-            projectile.SetUp(settings.direction.normalized, settings.initialSpeed, settings.trajectoryFormula);
+            projectile.SetUp(settings.direction.normalized, settings.trajectoryFormula);
         }
 
         private Projectile InstantiateProjectile(Projectile projectilePrefab, Vector3 spawnPosition)

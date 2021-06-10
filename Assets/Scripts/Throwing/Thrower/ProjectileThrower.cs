@@ -16,7 +16,6 @@ namespace Throwing
                 inventory.GetSelectedProjectile(),
                 aimer.GetCurrentDirection(),
                 aimer.GetSpawnPosition(),
-                aimer.initialSpeed,
                 aimer.trajectoryFormula
             );
 

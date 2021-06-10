@@ -48,7 +48,6 @@ namespace Throwing
             {
                 _pointPosition = aimer.trajectoryFormula.GetPosition(
                     aimer.GetCurrentDirection(),
-                    aimer.initialSpeed,
                     aimer.GetSpawnPosition(),
                     (float) i / lineResolution);
 

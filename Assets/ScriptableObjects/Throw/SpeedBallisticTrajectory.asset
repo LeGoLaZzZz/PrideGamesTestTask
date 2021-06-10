@@ -10,6 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f7b92b1b42b4318af4973e14dd960ec, type: 3}
-  m_Name: BallisticTrajectory
+  m_Name: SpeedBallisticTrajectory
   m_EditorClassIdentifier: 
   constants: {fileID: 11400000, guid: adc386de3a55b5149b5cdc858b1773ee, type: 2}
+  speed: 7.4

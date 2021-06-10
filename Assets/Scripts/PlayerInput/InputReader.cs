@@ -54,9 +54,7 @@ namespace PlayerInput
 
         public static FireButtonPressedEvent FireButtonPressedEvent = new FireButtonPressedEvent();
         public static FireButtonReleasedEvent FireButtonReleasedEvent = new FireButtonReleasedEvent();
-
         public static InteractButtonPressedEvent InteractButtonPressedEvent = new InteractButtonPressedEvent();
-
         public static InventoryKeyPressedEvent InventoryKeyPressedEvent = new InventoryKeyPressedEvent();
 
         public Vector2 MoveVector { get; protected set; }

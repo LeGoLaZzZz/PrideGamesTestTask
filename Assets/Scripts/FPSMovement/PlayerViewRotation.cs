@@ -8,14 +8,24 @@ namespace FPSMovement
     {
         [Header("Settings")]
         public float sensitivity = 1;
+        [SerializeField] private bool canRotation = true;
         [SerializeField] private Vector2 upDownRotationLimit = new Vector2(-90, 90);
-        
+
         [Header("Links")]
         [SerializeField] private Transform sideRotationTransform;
         [SerializeField] private Transform upDownRotationTransform;
-        
+
         private float _cameraXRotation;
 
+        public void StopRotation()
+        {
+            canRotation = false;
+        }
+        
+        public void StartRotation()
+        {
+            canRotation = true;
+        }
         private void Start()
         {
             _cameraXRotation = upDownRotationTransform.transform.localRotation.x;
@@ -24,7 +34,8 @@ namespace FPSMovement
 
         private void Update()
         {
-            RotationTick();
+            if (canRotation)
+                RotationTick();
         }
 
         private void RotationTick()
