@@ -8,8 +8,9 @@ namespace Throwing
     public class TrajectoryDrawer : MonoBehaviour
     {
         [Header("Settings")]
-        public int lineResolution;
+        public int maxLineResolution;
         public float overlapSphereRadius = 0.1f;
+        public float timeBetweenPoints = 0.1f;
         public LayerMask hitLayerMask;
         [Header("Links")]
         [SerializeField] private Aimer aimer;
@@ -21,6 +22,8 @@ namespace Throwing
 
 
         private Vector3 _pointPosition;
+        private float _curTimePoint;
+        private RaycastHit _wallHit;
 
         private void Update()
         {
@@ -42,64 +45,55 @@ namespace Throwing
 
         private void DrawTrajectory()
         {
-            lineRenderer.positionCount = lineResolution;
+            _curTimePoint = 0;
+            lineRenderer.positionCount = maxLineResolution;
 
-            for (int i = 0; i < lineResolution; i++)
+            for (int i = 0; i < maxLineResolution; i++)
             {
-                _pointPosition = aimer.trajectoryFormula.GetPosition(
-                    aimer.GetCurrentDirection(),
-                    aimer.GetSpawnPosition(),
-                    (float) i / lineResolution);
+                DrawPoint(i, _curTimePoint);
+                _curTimePoint += timeBetweenPoints;
 
-                lineRenderer.SetPosition(i, _pointPosition);
-
-                isWallColliding = CheckWall(i) && i > 0;
-                if (isWallColliding)
+                if (TryDrawMark(i))
                 {
                     lineRenderer.positionCount = i + 1;
                     break;
                 }
-                else
-                {
-                    HideMark();
-                }
             }
         }
 
-        private bool CheckWall(int pointIndex)
+        private bool TryDrawMark(int pointIndex)
         {
-            var point = lineRenderer.GetPosition(pointIndex);
-            var colliders = Physics.OverlapSphere(point, overlapSphereRadius, hitLayerMask);
+            isWallColliding = CheckWallRaycast(pointIndex, out _wallHit) && pointIndex > 0;
+            if (isWallColliding) DrawMark(_wallHit.point, _wallHit.point + _wallHit.normal);
+            else HideMark();
 
-            if (colliders.Length > 0)
-            {
-                var isHit = FindWallHit(pointIndex, colliders[0], out var hit);
-                if (isHit)
-                    DrawMark(hit.point, hit.point + hit.normal);
-            }
-
-            return colliders.Length > 0;
+            return isWallColliding;
         }
 
-        private bool FindWallHit(int pointIndex, Collider wall, out RaycastHit hit)
+
+        private void DrawPoint(int pointIndex, float timeMoment)
         {
-            Vector3 closestWallPoint;
-            Vector3 linePoint;
+            _pointPosition = aimer.trajectoryFormula.GetPosition(
+                aimer.GetCurrentDirection(),
+                aimer.GetSpawnPosition(),
+                timeMoment);
 
-            for (int i = pointIndex; i >= 0; i--)
+            lineRenderer.SetPosition(pointIndex, _pointPosition);
+        }
+
+        private bool CheckWallRaycast(int pointIndex, out RaycastHit wallHit)
+        {
+            if (pointIndex <= 0)
             {
-                linePoint = lineRenderer.GetPosition(i);
-                closestWallPoint = wall.ClosestPoint(linePoint);
-
-
-                if (Physics.Raycast(linePoint, closestWallPoint - linePoint, out hit, hitLayerMask))
-                {
-                    return true;
-                }
+                wallHit = default;
+                return false;
             }
 
-            hit = default(RaycastHit);
-            return false;
+            var curPoint = lineRenderer.GetPosition(pointIndex);
+            var prevPoint = lineRenderer.GetPosition(pointIndex - 1);
+            var dir = curPoint - prevPoint;
+
+            return Physics.Raycast(prevPoint, dir, out wallHit, dir.magnitude, hitLayerMask); //true if wall
         }
 
         private void DrawMark(Vector3 position, Vector3 looAt)
