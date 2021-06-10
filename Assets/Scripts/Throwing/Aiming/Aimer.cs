@@ -17,6 +17,7 @@ namespace Throwing
         [SerializeField] private AimingEventsChanel aimingEventsChanel;
         [SerializeField] private Camera playerCamera;
         [SerializeField] private Transform projectileSpawnPoint;
+        [SerializeField] public Transform directionPoint;
 
 
         public Vector3 GetSpawnPosition()
@@ -26,7 +27,7 @@ namespace Throwing
 
         public Vector3 GetCurrentDirection()
         {
-            return playerCamera.transform.forward;
+            return directionPoint.forward;
         }
 
         private void OnEnable()
@@ -49,6 +50,14 @@ namespace Throwing
                 Gizmos.DrawSphere(projectileSpawnPoint.transform.position, 0.1f);
             }
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            UnityEditor.Handles.ArrowHandleCap(GUIUtility.GetControlID(FocusType.Keyboard), projectileSpawnPoint.position,
+                Quaternion.LookRotation(directionPoint.forward), 1, EventType.Repaint);
+        }
+#endif
 
         private void OnFireButtonReleased()
         {

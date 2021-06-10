@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6957290622613849230}
   - component: {fileID: 6957290622613849231}
   - component: {fileID: 6957290622613849235}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,6 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1f123f82614df5b8b58cce1fef6bfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
   direction: {x: 0, y: 0, z: 0}
   isMoving: 0
