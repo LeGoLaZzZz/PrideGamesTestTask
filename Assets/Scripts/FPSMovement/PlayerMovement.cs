@@ -1,5 +1,6 @@
 using System;
 using PlayerInput;
+using Throwing;
 using UnityEngine;
 
 namespace FPSMovement
@@ -9,6 +10,8 @@ namespace FPSMovement
     {
         public float movementSpeed = 1;
         public float gravity = 9.8f;
+        [SerializeField] private bool canMove = true;
+
 
         private CharacterController _characterController;
         private Transform _transform;
@@ -16,6 +19,18 @@ namespace FPSMovement
         private bool _isGrounded;
         private Vector3 _verticalMove;
         private Vector3 _horizontalMove;
+
+        public bool CanMove => canMove;
+
+        public void StopMovement()
+        {
+            canMove = false;
+        }
+
+        public void StartMovement()
+        {
+            canMove = true;
+        }
 
         private void Awake()
         {
@@ -26,8 +41,9 @@ namespace FPSMovement
 
         private void Update()
         {
-            VerticalMove(Time.deltaTime);
-            HorizontalMove(Time.deltaTime);
+            VerticalMove(Time.deltaTime); //Falling
+            if (!CanMove) return;
+            HorizontalMove(Time.deltaTime);//Walking
         }
 
         private void HorizontalMove(float deltaTime)

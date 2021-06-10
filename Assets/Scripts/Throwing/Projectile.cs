@@ -1,23 +1,24 @@
+using Throwing.Trajectory;
 using UnityEngine;
 
-namespace Thrower
+namespace Throwing
 {
     public class Projectile : MonoBehaviour
     {
-        public float speed;
-
         [SerializeField] private Vector3 direction;
         [SerializeField] private bool isMoving;
 
+        private float _speed;
         private TrajectoryFormula _formula;
         private Vector3 _startPoint;
         private float _flyTime;
         private Transform _transform;
 
-        public void SetUp(Vector3 direction, TrajectoryFormula formula)
+        public void SetUp(Vector3 direction, float speed, TrajectoryFormula formula)
         {
             this.direction = direction;
             _formula = formula;
+            _speed = speed;
             StartMovement();
         }
 
@@ -32,7 +33,7 @@ namespace Thrower
             if (isMoving)
             {
                 _flyTime += Time.deltaTime;
-                _transform.position = _formula.Move(direction, speed, _startPoint, _flyTime);
+                _transform.position = _formula.GetPosition(direction, _speed, _startPoint, _flyTime);
             }
         }
 

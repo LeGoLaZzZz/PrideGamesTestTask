@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Thrower
+namespace Throwing.Trajectory
 {
     [CreateAssetMenu(menuName = "Throw/ThrowConstants", fileName = "ThrowConstants", order = 0)]
     public class ThrowConstants : ScriptableObject

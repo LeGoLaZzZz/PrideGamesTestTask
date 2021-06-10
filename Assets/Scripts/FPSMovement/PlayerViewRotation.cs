@@ -6,17 +6,19 @@ namespace FPSMovement
 {
     public class PlayerViewRotation : MonoBehaviour
     {
+        [Header("Settings")]
         public float sensitivity = 1;
-
-        [SerializeField] private CharacterController characterController;
-        [SerializeField] private Camera playerCamera;
         [SerializeField] private Vector2 upDownRotationLimit = new Vector2(-90, 90);
-
+        
+        [Header("Links")]
+        [SerializeField] private Transform sideRotationTransform;
+        [SerializeField] private Transform upDownRotationTransform;
+        
         private float _cameraXRotation;
 
         private void Start()
         {
-            _cameraXRotation = playerCamera.transform.localRotation.x;
+            _cameraXRotation = upDownRotationTransform.transform.localRotation.x;
             Cursor.lockState = CursorLockMode.Locked;
         }
 
@@ -33,14 +35,14 @@ namespace FPSMovement
 
         private void SideRotation(float delta)
         {
-            characterController.transform.Rotate(Vector3.up, delta);
+            sideRotationTransform.transform.Rotate(Vector3.up, delta);
         }
 
         private void UpDownRotation(float delta)
         {
             _cameraXRotation -= delta;
             _cameraXRotation = Mathf.Clamp(_cameraXRotation, upDownRotationLimit.x, upDownRotationLimit.y);
-            playerCamera.transform.localRotation = Quaternion.Euler(_cameraXRotation, 0, 0);
+            upDownRotationTransform.transform.localRotation = Quaternion.Euler(_cameraXRotation, 0, 0);
         }
     }
 }

@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace Thrower
+namespace Throwing.Trajectory
 {
     [CreateAssetMenu(menuName = "Throw/BallisticTrajectory", fileName = "BallisticTrajectory", order = 0)]
     public class BallisticTrajectory : TrajectoryFormula
     {
-        public override Vector3 Move(Vector3 direction, float speed, Vector3 startPoint, float time)
+        public override Vector3 GetPosition(Vector3 direction, float speed, Vector3 startPoint, float time)
         {
             return new Vector3(
                 GetSimpleMovementFloat(constants.horizontalAcceleration, direction.x * speed, startPoint.x, time),
@@ -14,6 +14,8 @@ namespace Thrower
             );
         }
 
+       
+        
         public float BallisticRange(float angle, float speed, float gravity, float startY)
         {
             // Derivation
