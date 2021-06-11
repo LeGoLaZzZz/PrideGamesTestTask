@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EnemyTeamConfig
   m_EditorClassIdentifier: 
   team: 4
-  enemyTeams: 3
+  enemyTeams: 2

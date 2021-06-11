@@ -14,8 +14,9 @@ namespace Fighting
         
         public void GetDamage(DamageBundle damageBundle)
         {
+           
             if (Team.CanFight(damageBundle.teamSource))
-            {
+            { 
                 _health.ReduceHealth(damageBundle.rawDamage);
             }
         }

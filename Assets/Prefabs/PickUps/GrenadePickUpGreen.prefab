@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 7716324640982599667}
   - component: {fileID: 7716324640982599664}
   - component: {fileID: 7716324640982599665}
+  - component: {fileID: 6265925365501221433}
   m_Layer: 8
   m_Name: GrenadePickUpGreen
   m_TagString: Untagged
@@ -379,4 +380,19 @@ MonoBehaviour:
   destroyDelay: 0.1
   textFormat: '{0} x{1}'
   titleText: {fileID: 829780292212784777}
-  canvas: {fileID: 829780292999502287}
+  pickedUp:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &6265925365501221433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7716324640982599671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ec3d65c9fe54c6e9c6d0527b8ae09f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 829780292999502284}

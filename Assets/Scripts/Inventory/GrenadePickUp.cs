@@ -26,32 +26,26 @@ namespace Throwing
         [Header("View")]
         public string textFormat = "{0} x{1}";
         [SerializeField] private TextMeshProUGUI titleText;
-        [SerializeField] private Canvas canvas;
+
 
         public PickedUpEvent pickedUp = new PickedUpEvent();
 
-        private Transform _camera;
-
-        private void Awake()
-        {
-            _camera = Camera.main.transform;
-        }
+        private bool _isPickedUp = false;
 
         private void Start()
         {
             titleText.text = string.Format(textFormat, grenadeConfig.title, count);
         }
 
-        private void Update()
-        {
-            canvas.transform.LookAt(_camera);
-        }
 
-        public void PickUp()
+        public bool TryPickUp()
         {
+            if (_isPickedUp) return false;
             //Cool view, animations, particles
             pickedUp.Invoke(new PickUppedEventArgs());
+            _isPickedUp = true;
             Destroy(gameObject, destroyDelay);
+            return true;
         }
     }
 }

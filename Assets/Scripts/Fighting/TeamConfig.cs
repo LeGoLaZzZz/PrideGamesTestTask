@@ -1,4 +1,5 @@
 using System;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 namespace Fighting
@@ -11,12 +12,12 @@ namespace Fighting
 
         public bool CanFight(TeamConfig other)
         {
-            return CanFight((int) other.team);
+            return CanFight(other.team);
         }
 
-        public bool CanFight(int other)
+        public bool CanFight(Team other)
         {
-            return (int) enemyTeams == ((int) enemyTeams | (1 << other));
+            return enemyTeams.HasFlag(other);
         }
     }
 }

@@ -162,7 +162,6 @@ namespace Throwing
 
         private void SelectedChangedInvoke(InventorySelectedChangedEventArgs args)
         {
-            Debug.Log("SelectedChangedInvoke");
             selectedChanged.Invoke(args);
         }
     }

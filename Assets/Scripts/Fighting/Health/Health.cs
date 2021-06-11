@@ -9,6 +9,7 @@ namespace Fighting
     {
     }
 
+
     [Serializable]
     public class DeathEventArgs
     {
@@ -20,9 +21,28 @@ namespace Fighting
         }
     }
 
+    [Serializable]
+    public class HealthChangedEvent : UnityEvent<HealthChangedEventArgs>
+    {
+    }
+
+    [Serializable]
+    public class HealthChangedEventArgs
+    {
+        public Health health;
+        public float changeAmount;
+
+        public HealthChangedEventArgs(Health health, float changeAmount)
+        {
+            this.health = health;
+            this.changeAmount = changeAmount;
+        }
+    }
+
     public class Health : MonoBehaviour
     {
         public DeathEvent deathEvent = new DeathEvent();
+        public HealthChangedEvent HealthChanged = new HealthChangedEvent();
 
         public bool destroyOnDeath = true;
         public float destroyDelay = 0.5f;
@@ -30,8 +50,8 @@ namespace Fighting
 
         [SerializeField] private float maxHealth;
         [SerializeField] private float currentHealth;
-        
-        
+
+
         public float MaxHealth => maxHealth;
         public float CurrentHealth => currentHealth;
 
@@ -51,6 +71,8 @@ namespace Fighting
             {
                 currentHealth -= amount;
             }
+
+            HealthChanged.Invoke(new HealthChangedEventArgs(this, -amount));
         }
 
         public void Die()

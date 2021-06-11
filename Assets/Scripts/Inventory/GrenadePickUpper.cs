@@ -11,8 +11,10 @@ namespace Throwing
         {
             if (other.TryGetComponent<GrenadePickUp>(out var pickUp))
             {
-                inventory.AddGrenade(pickUp.grenadeConfig, pickUp.count);
-                pickUp.PickUp();
+                if (pickUp.TryPickUp())
+                {
+                    inventory.AddGrenade(pickUp.grenadeConfig, pickUp.count);
+                }
             }
         }
     }
