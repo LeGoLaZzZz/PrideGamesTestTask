@@ -9,11 +9,11 @@ namespace Throwing
     {
         [Header("Settings")]
         public int maxLineResolution;
-        public float overlapSphereRadius = 0.1f;
         public float timeBetweenPoints = 0.1f;
         public LayerMask hitLayerMask;
         [Header("Links")]
         [SerializeField] private Aimer aimer;
+        [SerializeField] private Inventory inventory;
         [SerializeField] private LineRenderer lineRenderer;
         [SerializeField] private GameObject mark;
 
@@ -21,12 +21,24 @@ namespace Throwing
         [SerializeField] private bool isWallColliding;
 
 
+        private bool NeedDrawTrajectory => !inventory.IsProjectilesEmpty;
+        private Projectile SelectedProjectile => inventory.GetSelected().GetProjectilePrefab();
+
         private Vector3 _pointPosition;
         private float _curTimePoint;
         private RaycastHit _wallHit;
+        private Collider[] _collisions;
+        private int _maxCollisions = 10;
+
+
+        private void Awake()
+        {
+            _collisions = new Collider[_maxCollisions];
+        }
 
         private void Update()
         {
+            if (!NeedDrawTrajectory) return;
             if (!aimer.isAiming)
             {
                 lineRenderer.positionCount = 0;
@@ -39,8 +51,14 @@ namespace Throwing
 
         private void OnDrawGizmos()
         {
+            if (!NeedDrawTrajectory) return;
             Gizmos.color = new Color(0.11f, 0.75f, 0.2f, 0.4f);
-            Gizmos.DrawSphere(_pointPosition, overlapSphereRadius);
+
+            for (var i = 0; i < lineRenderer.positionCount; i++)
+            {
+                Gizmos.DrawSphere(lineRenderer.GetPosition(i),
+                    SelectedProjectile.collisionOverlapSphereRadius);
+            }
         }
 
         private void DrawTrajectory()
@@ -53,7 +71,7 @@ namespace Throwing
                 DrawPoint(i, _curTimePoint);
                 _curTimePoint += timeBetweenPoints;
 
-                if (TryDrawMark(i))
+                if (TryDrawMark(i) || CheckEndMaxFlyTime(_curTimePoint))
                 {
                     lineRenderer.positionCount = i + 1;
                     break;
@@ -61,9 +79,21 @@ namespace Throwing
             }
         }
 
+        private bool CheckEndMaxFlyTime(float curTimePoint)
+        {
+            return SelectedProjectile.MaxFlyTime <= curTimePoint;
+        }
+
         private bool TryDrawMark(int pointIndex)
         {
-            isWallColliding = CheckWallRaycast(pointIndex, out _wallHit) && pointIndex > 0;
+            isWallColliding = CheckWallRaycast(pointIndex, SelectedProjectile, out _wallHit) && pointIndex > 0;
+
+            if (!isWallColliding)
+            {
+                isWallColliding =
+                    CheckWallOverlap(pointIndex, SelectedProjectile, out _wallHit);
+            }
+
             if (isWallColliding) DrawMark(_wallHit.point, _wallHit.point + _wallHit.normal);
             else HideMark();
 
@@ -81,7 +111,7 @@ namespace Throwing
             lineRenderer.SetPosition(pointIndex, _pointPosition);
         }
 
-        private bool CheckWallRaycast(int pointIndex, out RaycastHit wallHit)
+        private bool CheckWallRaycast(int pointIndex, Projectile projectile, out RaycastHit wallHit)
         {
             if (pointIndex <= 0)
             {
@@ -93,8 +123,49 @@ namespace Throwing
             var prevPoint = lineRenderer.GetPosition(pointIndex - 1);
             var dir = curPoint - prevPoint;
 
-            return Physics.Raycast(prevPoint, dir, out wallHit, dir.magnitude, hitLayerMask); //true if wall
+            return Physics.SphereCast(prevPoint, projectile.collisionOverlapSphereRadius, dir, out wallHit,
+                dir.magnitude, hitLayerMask); //true if wall
         }
+
+
+        private bool CheckWallOverlap(int pointIndex, Projectile projectile, out RaycastHit wallHit)
+        {
+            var point = lineRenderer.GetPosition(pointIndex);
+            var size = Physics.OverlapSphereNonAlloc(point, projectile.collisionOverlapSphereRadius, _collisions,
+                hitLayerMask);
+
+            wallHit = default;
+
+            if (size > 0)
+            {
+                var isHit = FindWallHit(pointIndex, _collisions[0], out wallHit);
+                if (isHit) return true;
+            }
+
+            return false;
+        }
+
+        private bool FindWallHit(int pointIndex, Collider wall, out RaycastHit hit)
+        {
+            Vector3 closestWallPoint;
+            Vector3 linePoint;
+
+            for (int i = pointIndex; i >= 0; i--)
+            {
+                linePoint = lineRenderer.GetPosition(i);
+                closestWallPoint = wall.ClosestPoint(linePoint);
+
+
+                if (Physics.Raycast(linePoint, closestWallPoint - linePoint, out hit, hitLayerMask))
+                {
+                    return true;
+                }
+            }
+
+            hit = default(RaycastHit);
+            return false;
+        }
+
 
         private void DrawMark(Vector3 position, Vector3 looAt)
         {

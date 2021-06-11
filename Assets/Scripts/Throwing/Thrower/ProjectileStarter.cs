@@ -7,15 +7,10 @@ namespace Throwing
     {
         public void StartProjectile(ProjectileThrowSettings settings)
         {
-            var projectile = InstantiateProjectile(settings.prefab, settings.startPosition);
-            projectile.SetUp(settings.direction.normalized, settings.trajectoryFormula);
-        }
-
-        private Projectile InstantiateProjectile(Projectile projectilePrefab, Vector3 spawnPosition)
-        {
-            var newProjectile = Instantiate(projectilePrefab);
-            newProjectile.transform.position = spawnPosition;
-            return newProjectile;
+            var projectile = settings.projectileProvider.GetProjectileObject();
+            projectile.SetOwnerTeam(settings.teamOwner);
+            projectile.transform.position = settings.startPosition;
+            projectile.MovementSetUp(settings.direction.normalized, settings.trajectoryFormula);
         }
     }
 }

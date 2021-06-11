@@ -1,4 +1,5 @@
 using System;
+using Fighting;
 using Throwing.Trajectory;
 using UnityEngine;
 
@@ -7,17 +8,19 @@ namespace Throwing
     [Serializable]
     public class ProjectileThrowSettings
     {
-        public Projectile prefab;
+        public IProjectileProvider projectileProvider;
         public Vector3 direction;
         public Vector3 startPosition;
         public TrajectoryFormula trajectoryFormula;
+        public TeamConfig teamOwner;
 
-        public ProjectileThrowSettings(Projectile prefab, Vector3 direction, Vector3 startPosition, TrajectoryFormula trajectoryFormula)
+        public ProjectileThrowSettings(IProjectileProvider projectileProvider, Vector3 direction, Vector3 startPosition, TrajectoryFormula trajectoryFormula, TeamConfig teamOwner)
         {
-            this.prefab = prefab;
+            this.projectileProvider = projectileProvider;
             this.direction = direction;
             this.startPosition = startPosition;
             this.trajectoryFormula = trajectoryFormula;
+            this.teamOwner = teamOwner;
         }
     }
 }
