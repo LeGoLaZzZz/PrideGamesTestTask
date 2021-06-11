@@ -36,10 +36,15 @@ namespace Throwing
             _collisions = new Collider[_maxCollisions];
         }
 
+        private void Start()
+        {
+            lineRenderer.positionCount = 0;
+            HideMark();
+        }
+
         private void Update()
         {
-            if (!NeedDrawTrajectory) return;
-            if (!aimer.isAiming)
+            if (!NeedDrawTrajectory || !aimer.isAiming)
             {
                 lineRenderer.positionCount = 0;
                 HideMark();

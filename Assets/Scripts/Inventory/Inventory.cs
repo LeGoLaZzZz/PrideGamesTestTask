@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using PlayerInput;
 using UnityEngine;
@@ -7,6 +8,26 @@ using UnityEngine.Events;
 
 namespace Throwing
 {
+    [Serializable]
+    public class InventoryContentChangedEvent : UnityEvent<InventoryContentChangedEventArgs>
+    {
+    }
+
+    [Serializable]
+    public class InventoryContentChangedEventArgs
+    {
+        public GrenadeConfig config;
+        public int changeValue;
+        public int currentValue;
+
+        public InventoryContentChangedEventArgs(GrenadeConfig config, int changeValue, int currentValue)
+        {
+            this.config = config;
+            this.changeValue = changeValue;
+            this.currentValue = currentValue;
+        }
+    }
+
     [Serializable]
     public class InventorySelectedChangedEvent : UnityEvent<InventorySelectedChangedEventArgs>
     {
@@ -25,7 +46,9 @@ namespace Throwing
 
 
         public InventorySelectedChangedEvent selectedChanged = new InventorySelectedChangedEvent();
+        public InventoryContentChangedEvent contentChanged = new InventoryContentChangedEvent();
 
+        public ReadOnlyDictionary<GrenadeConfig, int> Grenades => new ReadOnlyDictionary<GrenadeConfig, int>(grenades);
         public GrenadeConfig Selected => selected;
         public bool IsProjectilesEmpty => grenades.Values.All(grenadesValue => grenadesValue == 0);
 
@@ -33,6 +56,9 @@ namespace Throwing
         {
             if (!grenades.ContainsKey(grenadeConfig)) grenades.Add(grenadeConfig, count);
             else grenades[grenadeConfig] += count;
+
+            contentChanged.Invoke(new InventoryContentChangedEventArgs(grenadeConfig, count, grenades[grenadeConfig]));
+
             UpdateSelected();
         }
 
@@ -47,6 +73,7 @@ namespace Throwing
             if (curCount - count == 0) grenades.Remove(grenadeConfig);
             else grenades[grenadeConfig] -= count;
 
+            contentChanged.Invoke(new InventoryContentChangedEventArgs(grenadeConfig, -count, curCount - count));
             UpdateSelected();
 
             return true;
@@ -56,9 +83,12 @@ namespace Throwing
         public bool TryTakeSelected(out IProjectileProvider provider, int count = 1)
         {
             provider = null;
-            if (TryTakeGrenade(selected, count))
+            var currentSelected = selected;
+            if (!currentSelected) return false;
+
+            if (TryTakeGrenade(currentSelected, count))
             {
-                provider = selected;
+                provider = currentSelected;
                 return true;
             }
 
@@ -107,7 +137,9 @@ namespace Throwing
             if (isLeft) selectedId--;
             else selectedId++;
 
+            // Debug.Log($"{selectedId} % {configs.Length} ={selectedId % configs.Length} ");
             selectedId = selectedId % configs.Length;
+            if (selectedId < 0) selectedId += configs.Length;
 
             selected = configs[selectedId];
             SelectedChangedInvoke(new InventorySelectedChangedEventArgs());
@@ -130,6 +162,7 @@ namespace Throwing
 
         private void SelectedChangedInvoke(InventorySelectedChangedEventArgs args)
         {
+            Debug.Log("SelectedChangedInvoke");
             selectedChanged.Invoke(args);
         }
     }

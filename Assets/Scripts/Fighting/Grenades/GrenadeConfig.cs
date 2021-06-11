@@ -8,6 +8,8 @@ namespace Throwing
 
         [Multiline]
         public string description;
+        
+        public Color icon;
 
         public abstract Grenade GetGrenadePrefab();
         public abstract Grenade GetGrenadeObject();
