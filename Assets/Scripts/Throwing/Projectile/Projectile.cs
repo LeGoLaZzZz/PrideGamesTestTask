@@ -1,5 +1,6 @@
 using System;
 using Fighting;
+using Throwing.Thrower;
 using Throwing.Trajectory;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -60,7 +61,9 @@ namespace Throwing
         [SerializeField] private TeamConfig teamOwner;
 
         private TrajectoryFormula _formula;
+        private ThrowAimType _throwAimType;
         private Vector3 _startPoint;
+        private Vector3 _endPoint;
         private float _flyTime;
         private Transform _transform;
 
@@ -68,9 +71,18 @@ namespace Throwing
         public Collider ProjectileCollider => projectileCollider;
         public float MaxFlyTime => maxFlyTime;
 
-        public void MovementSetUp(Vector3 direction, TrajectoryFormula formula)
+        public void MovementByAngleSetUp(Vector3 direction, TrajectoryFormula formula)
         {
+            _throwAimType = ThrowAimType.ByAngle;
             this.direction = direction;
+            _formula = formula;
+            StartMovement();
+        }
+
+        public void MovementByTargetSetUp(Vector3 endPoint, TrajectoryFormula formula)
+        {
+            _throwAimType = ThrowAimType.ByTarget;
+            _endPoint = endPoint;
             _formula = formula;
             StartMovement();
         }
@@ -98,8 +110,16 @@ namespace Throwing
             if (isMoving)
             {
                 _flyTime += Time.deltaTime;
-                _transform.position =
-                    _formula.GetPosition(direction, _startPoint, _flyTime);
+
+                if (_throwAimType == ThrowAimType.ByAngle)
+                {
+                    _transform.position = _formula.GetPositionByAngle(direction, _startPoint, _flyTime);
+                }
+                else
+                {
+                    _transform.position = _formula.GetPositionByTarget(_endPoint, _startPoint, _flyTime);
+                }
+
                 if (maxFlyTime <= _flyTime)
                 {
                     EndThrow(ThrowFinishReason.TimePassed);

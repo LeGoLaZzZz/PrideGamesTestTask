@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ec3d65c9fe54c6e9c6d0527b8ae09f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 829780292999502284}
+  rotationTransform: {fileID: 829780292999502284}
 --- !u!1 &6697674460433260559
 GameObject:
   m_ObjectHideFlags: 0

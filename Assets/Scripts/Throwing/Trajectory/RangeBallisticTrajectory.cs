@@ -8,36 +8,65 @@ namespace Throwing.Trajectory
         public float maxRange;
         public float maxHeight;
 
-        public override Vector3 GetPosition(Vector3 direction, Vector3 startPoint, float timeMoment)
+        public override Vector3 GetPositionByAngle(Vector3 direction, Vector3 startPoint, float timeMoment)
+        {
+            direction.x *= GetSpeedByRange(maxRange);
+            direction.y *= GetSpeedByHeight(maxHeight);
+            direction.z *= GetSpeedByRange(maxRange);
+            return GetPositionByAngle(direction, startPoint, gravity, timeMoment);
+        }
+
+        public override Vector3 GetPositionByTarget(Vector3 targetPoint, Vector3 startPoint, float timeMoment)
+        {
+            SpeedBallisticTrajectory.CalculateGravityAndYSpeed(startPoint, targetPoint, GetSpeedByRange(maxRange),
+                maxHeight, out var direction, out var gravity);
+
+            return GetPositionByAngle(direction, startPoint, gravity, timeMoment);
+        }
+
+        private Vector3 GetPositionByAngle(Vector3 direction, Vector3 startPoint, float gravity, float timeMoment)
         {
             return new Vector3(
-                startPoint.x +
-                (GetSimpleMovementFloat(constants.horizontalAcceleration, direction.x ,startPoint.x, timeMoment) - startPoint.x) *
-                maxRange / SpeedBallisticTrajectory.GetMaxRange(1, constants.gravity, startPoint),
-                
-                startPoint.y +
-                (GetSimpleMovementFloat(-constants.gravity, direction.y ,startPoint.y, timeMoment) - startPoint.y) *
-                maxHeight / SpeedBallisticTrajectory.GetMaxHigh(1, constants.gravity, direction),
-                
-                startPoint.z +
-                (GetSimpleMovementFloat(constants.horizontalAcceleration, direction.z ,startPoint.z, timeMoment) - startPoint.z) *
-                maxRange / SpeedBallisticTrajectory.GetMaxRange(1, constants.gravity, startPoint)
+                GetSimpleMovementFloat(horizontalAcceleration, direction.x,
+                    startPoint.x, timeMoment),
+                GetSimpleMovementFloat(-gravity, direction.y, startPoint.y,
+                    timeMoment),
+                GetSimpleMovementFloat(horizontalAcceleration, direction.z,
+                    startPoint.z, timeMoment)
             );
         }
 
-        public override float GetMaxHigh(Vector3 direction, Vector3 startPoint)
-        {
-            return maxHeight;
-        }
 
-        public override float GetMaxRange(Vector3 direction, Vector3 startPoint)
-        {
-            return maxRange;
-        }
-
-        private float GetSimpleMovementFloat(float acceleration,float direction, float start, float time)
+        private float GetSimpleMovementFloat(float acceleration, float direction, float start, float time)
         {
             return acceleration * time * time / 2 + direction * time + start;
+        }
+
+        private float GetSpeedByRange(float range)
+        {
+            var radAngle = 45 * Mathf.Deg2Rad;
+            var cos = Mathf.Cos(radAngle);
+            var sin = Mathf.Sin(radAngle);
+
+            //v=sqrt(lg/sina/cosa/2)
+            return Mathf.Sqrt(range * gravity / cos / sin / 2);
+        }
+
+        private float GetSpeedByHeight(float height)
+        {
+            var radAngle = 45 * Mathf.Deg2Rad;
+            var sin = Mathf.Sin(radAngle);
+
+            //v=sqrt(h*2*g/sin/sin)
+            return Mathf.Sqrt(height * gravity * 2 / sin / sin);
+        }
+
+        private float GetAngleByRange(float range)
+        {
+            //a=arcsin(s*g/v/v)/2
+            var speed = GetSpeedByRange(range);
+
+            return Mathf.Asin(range * gravity / speed / speed) / 2 * Mathf.Rad2Deg;
         }
     }
 }

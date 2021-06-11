@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blowUpParticles: {fileID: 19811986, guid: 7b51675ac5d92ab49a830cc34f5b4cb9, type: 3}
+  projectile: {fileID: 6957290622613849235}
   grenadeBlewUpEvent:
     m_PersistentCalls:
       m_Calls: []

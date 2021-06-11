@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c21eaf3dd60436fa1838bb7e6c4f781, type: 3}
   m_Name: RangeBallisticTrajectory
   m_EditorClassIdentifier: 
-  constants: {fileID: 11400000, guid: adc386de3a55b5149b5cdc858b1773ee, type: 2}
-  maxRange: 11.85
-  maxHeight: 9.64
+  gravity: 9.7
+  horizontalAcceleration: 0
+  maxRange: 2.67
+  maxHeight: 1.41

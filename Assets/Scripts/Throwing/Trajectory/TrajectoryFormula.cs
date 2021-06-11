@@ -4,11 +4,11 @@ namespace Throwing.Trajectory
 {
     public abstract class TrajectoryFormula : ScriptableObject
     {
-        [SerializeField] protected ThrowConstants constants;
+        public float gravity = 9.7f;
+        public float horizontalAcceleration = 0f;
 
-        public abstract Vector3 GetPosition(Vector3 direction, Vector3 startPoint, float timeMoment);
-        public abstract float GetMaxHigh(Vector3 direction, Vector3 startPoint);
-        public abstract float GetMaxRange(Vector3 direction, Vector3 startPoint);
+        public abstract Vector3 GetPositionByAngle(Vector3 direction, Vector3 startPoint, float timeMoment);
+        public abstract Vector3 GetPositionByTarget(Vector3 targetPoint, Vector3 startPoint, float timeMoment);
         
     }
 }

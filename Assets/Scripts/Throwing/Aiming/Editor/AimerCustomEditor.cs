@@ -15,19 +15,6 @@ namespace Throwing.Editor
             _aimer = target as Aimer;
         }
 
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
-
-            var trajectoryFormula = _aimer.trajectoryFormula;
-            
-            var maxiHigh = trajectoryFormula.GetMaxHigh(_aimer.GetCurrentDirection(),_aimer.GetSpawnPosition() );
-            UnityEditor.EditorGUILayout.LabelField($"Max high: {maxiHigh}");
-        
-            var maxiRange = trajectoryFormula.GetMaxRange(_aimer.GetCurrentDirection(),_aimer.GetSpawnPosition());
-            UnityEditor.EditorGUILayout.LabelField($"Max range: {maxiRange}");
-        }
-
         public void OnSceneGUI()
         {
             EditorGUI.BeginChangeCheck();

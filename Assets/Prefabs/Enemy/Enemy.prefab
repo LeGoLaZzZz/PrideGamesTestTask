@@ -1,5 +1,103 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3098924334175079727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8662914185112504688}
+  - component: {fileID: 5602776618091952813}
+  - component: {fileID: 2184734064575806874}
+  m_Layer: 10
+  m_Name: Thrower
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8662914185112504688
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3098924334175079727}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 9030330024075911122}
+  - {fileID: 2368003141926072692}
+  m_Father: {fileID: 5289557659016827242}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5602776618091952813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3098924334175079727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f3d1ac40ef34c51a7236e840b2fb56f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamOwner: {fileID: 11400000, guid: 9b07f188bc4047b4e86635fbfa549069, type: 2}
+  projectileStarter: {fileID: 2184734064575806874}
+  grenadeConfig: {fileID: 11400000, guid: f669396bae319274ca1d3cd2bc5aeda1, type: 2}
+  trajectory: {fileID: 11400000, guid: 0dfe8ae1ae5f980419f502c3bf6772b9, type: 2}
+  spawnPosition: {fileID: 9030330024075911122}
+  directionPoint: {fileID: 2368003141926072692}
+  cooldown: 5
+--- !u!114 &2184734064575806874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3098924334175079727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f126bf8f2a9109b4fa0b6d7109a2636a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 641
+--- !u!1 &3622566410052455747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9030330024075911122}
+  m_Layer: 10
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9030330024075911122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3622566410052455747}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.078, y: 0.827, z: -0.683}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8662914185112504688}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5289557657630736675
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +107,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5289557657630736674}
-  m_Layer: 0
+  - component: {fileID: 7858830890186861295}
+  m_Layer: 10
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,6 +133,19 @@ Transform:
   m_Father: {fileID: 5289557659016827242}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7858830890186861295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5289557657630736675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ec3d65c9fe54c6e9c6d0527b8ae09f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationTransform: {fileID: 5289557657630736674}
 --- !u!1 &5289557657705590171
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,7 +157,7 @@ GameObject:
   - component: {fileID: 5289557657705590170}
   - component: {fileID: 5289557657705590168}
   - component: {fileID: 5289557657705590169}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +291,7 @@ GameObject:
   - component: {fileID: 5289557657731211858}
   - component: {fileID: 5289557657731211871}
   - component: {fileID: 5289557657731211856}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +372,7 @@ GameObject:
   - component: {fileID: 5289557658070054388}
   - component: {fileID: 5289557658070054385}
   - component: {fileID: 5289557658070054386}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Capsule (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,7 +453,7 @@ GameObject:
   - component: {fileID: 5289557658396618402}
   - component: {fileID: 5289557658396618415}
   - component: {fileID: 5289557658396618400}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Capsule (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,7 +537,7 @@ GameObject:
   - component: {fileID: 5289557658934619828}
   - component: {fileID: 5289557658934619825}
   - component: {fileID: 2398865555299356493}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Canvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -528,9 +640,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: {fileID: 5289557659016827240}
   healthText: {fileID: 5289557657705590169}
-  canvas: {fileID: 0}
   spawnRandomRange: {x: 0.3, y: 0.1, z: 0.3}
   popUpHealthNumberPrefab: {fileID: 7273692261701968222, guid: 223fe306223219f4ea83e726a13e0a61, type: 3}
+  popUpParent: {fileID: 5289557658934619829}
 --- !u!114 &2398865555299356493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,7 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ec3d65c9fe54c6e9c6d0527b8ae09f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 5289557658934619829}
+  rotationTransform: {fileID: 5289557658934619829}
 --- !u!1 &5289557659016827243
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +669,7 @@ GameObject:
   - component: {fileID: 5289557659016827241}
   - component: {fileID: 5289557659016827031}
   - component: {fileID: 6756265669190451731}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -577,6 +689,7 @@ Transform:
   m_Children:
   - {fileID: 5289557658934619829}
   - {fileID: 5289557657630736674}
+  - {fileID: 8662914185112504688}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -671,7 +784,7 @@ GameObject:
   - component: {fileID: 5289557659405427061}
   - component: {fileID: 5289557659405427058}
   - component: {fileID: 5289557659405427059}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Capsule (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -741,6 +854,36 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6782456671497702932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2368003141926072692}
+  m_Layer: 10
+  m_Name: DirectionPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2368003141926072692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6782456671497702932}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.078, y: 0.827, z: -0.683}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8662914185112504688}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &7653430245650497974
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,7 +895,7 @@ GameObject:
   - component: {fileID: 602413878986034057}
   - component: {fileID: 7622214544594931713}
   - component: {fileID: 1545172666367179134}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}

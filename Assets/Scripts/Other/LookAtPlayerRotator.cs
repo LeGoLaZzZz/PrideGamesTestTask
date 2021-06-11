@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public class WorldUiRotator : MonoBehaviour
+    public class LookAtPlayerRotator : MonoBehaviour
     {
-        [SerializeField] private Transform canvas;
+        [SerializeField] private Transform rotationTransform;
 
         private Transform _playerMarkerTransform;
         private bool _isPlayerMarker;
@@ -19,7 +19,7 @@ namespace DefaultNamespace
 
         private void Update()
         {
-            if (_isPlayerMarker) canvas.LookAt(_playerMarkerTransform);
+            if (_isPlayerMarker) rotationTransform.LookAt(_playerMarkerTransform);
         }
     }
 }

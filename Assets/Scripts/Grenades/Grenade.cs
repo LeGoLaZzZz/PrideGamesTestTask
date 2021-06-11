@@ -26,13 +26,14 @@ namespace Throwing
     public abstract class Grenade : MonoBehaviour
     {
         [SerializeField] private ParticleSystem blowUpParticles;
-        protected Projectile Projectile;
+        [SerializeField] protected Projectile projectile;
 
         public GrenadeBlewUpEvent grenadeBlewUpEvent = new GrenadeBlewUpEvent();
 
         protected abstract void BlowUpAction(Vector3 blowUpPoint);
         
         public TeamConfig TeamOwner => Projectile.TeamOwner;
+        public Projectile Projectile => projectile;
 
         public void BlowUp()
         {
@@ -47,7 +48,7 @@ namespace Throwing
 
         protected virtual void Awake()
         {
-            Projectile = GetComponent<Projectile>();
+            projectile = GetComponent<Projectile>();
         }
 
         private void OnEnable()

@@ -37,13 +37,13 @@ namespace Throwing
         public override Projectile GetProjectileObject()
         {
             var grenadeObject = GetGrenadeObject();
-            return grenadeObject.GetComponent<Projectile>();
+            return grenadeObject.Projectile;
         }       
         
         public override Projectile GetProjectilePrefab()
         {
             var grenadeObject = GetGrenadePrefab();
-            return grenadeObject.GetComponent<Projectile>();
+            return grenadeObject.Projectile;
         }
     }
 }

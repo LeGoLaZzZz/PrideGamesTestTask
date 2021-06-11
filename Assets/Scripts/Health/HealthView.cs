@@ -10,18 +10,18 @@ namespace Fighting
         [Header("Links")]
         public Health health;
         [SerializeField] private TextMeshProUGUI healthText;
-        [SerializeField] private Canvas canvas;
 
         [Header("Pop ups")]
         public Vector3 spawnRandomRange;
         [SerializeField] private PopUpHealthNumber popUpHealthNumberPrefab;
+        [SerializeField] private RectTransform popUpParent;
 
         private void OnEnable()
         {
             health.HealthChanged.AddListener(OnHealthChanged);
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             UpdateHealth();
         }
@@ -44,7 +44,7 @@ namespace Fighting
 
         private void SpawnPopUp(float amount)
         {
-            var popUpHealthNumber = Instantiate(popUpHealthNumberPrefab);
+            var popUpHealthNumber = Instantiate(popUpHealthNumberPrefab, popUpParent, false);
             popUpHealthNumber.transform.position = transform.position + new Vector3(
                 Random.Range(-spawnRandomRange.x, spawnRandomRange.x),
                 Random.Range(-spawnRandomRange.y, spawnRandomRange.y),

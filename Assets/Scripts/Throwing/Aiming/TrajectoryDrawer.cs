@@ -1,28 +1,27 @@
 using System;
+using Throwing.Thrower;
+using Throwing.Trajectory;
 using UnityEditor;
 using UnityEngine;
 
 namespace Throwing
 {
     [ExecuteAlways]
-    public class TrajectoryDrawer : MonoBehaviour
+    public abstract class TrajectoryDrawer : MonoBehaviour
     {
         [Header("Settings")]
         public int maxLineResolution;
         public float timeBetweenPoints = 0.1f;
         public LayerMask hitLayerMask;
         [Header("Links")]
-        [SerializeField] private Aimer aimer;
-        [SerializeField] private Inventory inventory;
         [SerializeField] private LineRenderer lineRenderer;
         [SerializeField] private GameObject mark;
 
         [Header("Monitor")]
         [SerializeField] private bool isWallColliding;
+        [Header("Debug")]
+        [SerializeField] private bool debugAim;
 
-
-        private bool NeedDrawTrajectory => !inventory.IsProjectilesEmpty;
-        private Projectile SelectedProjectile => inventory.GetSelected().GetProjectilePrefab();
 
         private Vector3 _pointPosition;
         private float _curTimePoint;
@@ -30,6 +29,13 @@ namespace Throwing
         private Collider[] _collisions;
         private int _maxCollisions = 10;
 
+
+        protected abstract ThrowAimType ThrowAimType(out Vector3 targetPoint);
+        protected abstract Vector3 GetDirection();
+        protected abstract Vector3 GetStartPosition();
+        protected abstract TrajectoryFormula GetTrajectoryFormula();
+        protected abstract Projectile GetProjectile();
+        protected abstract bool NeedDrawTrajectory();
 
         private void Awake()
         {
@@ -44,25 +50,29 @@ namespace Throwing
 
         private void Update()
         {
-            if (!NeedDrawTrajectory || !aimer.isAiming)
+            if (debugAim) DrawTrajectory();
+            else
             {
-                lineRenderer.positionCount = 0;
-                HideMark();
-                return;
-            }
+                if (!NeedDrawTrajectory())
+                {
+                    lineRenderer.positionCount = 0;
+                    HideMark();
+                    return;
+                }
 
-            DrawTrajectory();
+                DrawTrajectory();
+            }
         }
 
         private void OnDrawGizmos()
         {
-            if (!NeedDrawTrajectory) return;
+            if (!NeedDrawTrajectory()) return;
             Gizmos.color = new Color(0.11f, 0.75f, 0.2f, 0.4f);
 
             for (var i = 0; i < lineRenderer.positionCount; i++)
             {
                 Gizmos.DrawSphere(lineRenderer.GetPosition(i),
-                    SelectedProjectile.collisionOverlapSphereRadius);
+                    GetProjectile().collisionOverlapSphereRadius);
             }
         }
 
@@ -86,17 +96,17 @@ namespace Throwing
 
         private bool CheckEndMaxFlyTime(float curTimePoint)
         {
-            return SelectedProjectile.MaxFlyTime <= curTimePoint;
+            return GetProjectile().MaxFlyTime <= curTimePoint;
         }
 
         private bool TryDrawMark(int pointIndex)
         {
-            isWallColliding = CheckWallRaycast(pointIndex, SelectedProjectile, out _wallHit) && pointIndex > 0;
+            isWallColliding = CheckWallRaycast(pointIndex, GetProjectile(), out _wallHit) && pointIndex > 0;
 
             if (!isWallColliding)
             {
                 isWallColliding =
-                    CheckWallOverlap(pointIndex, SelectedProjectile, out _wallHit);
+                    CheckWallOverlap(pointIndex, GetProjectile(), out _wallHit);
             }
 
             if (isWallColliding) DrawMark(_wallHit.point, _wallHit.point + _wallHit.normal);
@@ -108,10 +118,21 @@ namespace Throwing
 
         private void DrawPoint(int pointIndex, float timeMoment)
         {
-            _pointPosition = aimer.trajectoryFormula.GetPosition(
-                aimer.GetCurrentDirection(),
-                aimer.GetSpawnPosition(),
-                timeMoment);
+            if (ThrowAimType(out var targetPoint)==Thrower.ThrowAimType.ByTarget)
+            {
+                _pointPosition = GetTrajectoryFormula().GetPositionByTarget(
+                    targetPoint,
+                    GetStartPosition(),
+                    timeMoment);
+            }
+            else
+            {
+                _pointPosition = GetTrajectoryFormula().GetPositionByAngle(
+                    GetDirection(),
+                    GetStartPosition(),
+                    timeMoment);
+            }
+
 
             lineRenderer.SetPosition(pointIndex, _pointPosition);
         }
