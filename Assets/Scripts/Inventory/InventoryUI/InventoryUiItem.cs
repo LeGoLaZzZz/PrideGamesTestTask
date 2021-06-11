@@ -1,9 +1,9 @@
-using System;
+using Grenades;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Throwing.View
+namespace Inventory.InventoryUI
 {
     public class InventoryUiItem : MonoBehaviour
     {

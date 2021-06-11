@@ -1,10 +1,10 @@
 using System;
-using Fighting;
-using Throwing.Thrower;
+using DamageDealing;
+using Throwing.Projectile;
 using Throwing.Trajectory;
 using UnityEngine;
 
-namespace Throwing
+namespace Throwing.Thrower
 {
     [Serializable]
     public class ProjectileThrowSettings

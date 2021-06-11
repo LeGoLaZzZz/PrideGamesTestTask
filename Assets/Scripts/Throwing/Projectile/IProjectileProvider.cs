@@ -1,4 +1,4 @@
-namespace Throwing
+namespace Throwing.Projectile
 {
     public interface IProjectileProvider
     {

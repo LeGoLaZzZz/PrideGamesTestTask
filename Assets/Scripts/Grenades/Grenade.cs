@@ -1,9 +1,10 @@
 using System;
-using Fighting;
+using DamageDealing;
+using Throwing.Projectile;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Throwing
+namespace Grenades
 {
     [Serializable]
     public class GrenadeBlewUpEvent : UnityEvent<GrenadeBlewUpEventArgs>

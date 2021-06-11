@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Throwing
+namespace Grenades
 {
     [CreateAssetMenu(fileName = "RadiusDamageGrenadeConfig", menuName = "Fighting/RadiusDamageGrenadeConfig",
         order = 0)]

@@ -1,9 +1,10 @@
 using System;
+using Grenades;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Throwing
+namespace Inventory
 {
     [Serializable]
     public class PickedUpEvent : UnityEvent<PickUppedEventArgs>

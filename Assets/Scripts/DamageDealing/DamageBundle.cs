@@ -1,6 +1,6 @@
 using System;
 
-namespace Fighting
+namespace DamageDealing
 {
     [Serializable]
     public class DamageBundle

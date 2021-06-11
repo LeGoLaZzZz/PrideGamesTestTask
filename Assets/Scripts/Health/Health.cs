@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Fighting
+namespace Health
 {
     [Serializable]
     public class DeathEvent : UnityEvent<DeathEventArgs>

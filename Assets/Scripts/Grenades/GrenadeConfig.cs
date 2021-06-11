@@ -1,6 +1,7 @@
+using Throwing.Projectile;
 using UnityEngine;
 
-namespace Throwing
+namespace Grenades
 {
     public abstract class GrenadeConfig : ScriptableObject, IProjectileProvider
     {

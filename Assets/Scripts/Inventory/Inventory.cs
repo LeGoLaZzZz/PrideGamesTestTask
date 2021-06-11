@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Grenades;
 using PlayerInput;
+using Throwing.Projectile;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Throwing
+namespace Inventory
 {
     [Serializable]
     public class InventoryContentChangedEvent : UnityEvent<InventoryContentChangedEventArgs>

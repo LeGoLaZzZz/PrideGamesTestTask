@@ -1,10 +1,9 @@
-using System;
-using DefaultNamespace;
-using Throwing;
+using Grenades;
+using Other;
 using Throwing.Trajectory;
 using UnityEngine;
 
-namespace Fighting
+namespace Throwing.Thrower
 {
     public class AIThrower : ProjectileThrower
     {

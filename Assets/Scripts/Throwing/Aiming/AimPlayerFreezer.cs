@@ -1,7 +1,7 @@
 using FPSMovement;
 using UnityEngine;
 
-namespace Throwing
+namespace Throwing.Aiming
 {
     public class AimPlayerFreezer : MonoBehaviour
     {

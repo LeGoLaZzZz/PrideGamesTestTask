@@ -1,10 +1,8 @@
-using System;
 using Throwing.Thrower;
 using Throwing.Trajectory;
-using UnityEditor;
 using UnityEngine;
 
-namespace Throwing
+namespace Throwing.Aiming
 {
     [ExecuteAlways]
     public abstract class TrajectoryDrawer : MonoBehaviour
@@ -34,7 +32,7 @@ namespace Throwing
         protected abstract Vector3 GetDirection();
         protected abstract Vector3 GetStartPosition();
         protected abstract TrajectoryFormula GetTrajectoryFormula();
-        protected abstract Projectile GetProjectile();
+        protected abstract Projectile.Projectile GetProjectile();
         protected abstract bool NeedDrawTrajectory();
 
         private void Awake()
@@ -137,7 +135,7 @@ namespace Throwing
             lineRenderer.SetPosition(pointIndex, _pointPosition);
         }
 
-        private bool CheckWallRaycast(int pointIndex, Projectile projectile, out RaycastHit wallHit)
+        private bool CheckWallRaycast(int pointIndex, Projectile.Projectile projectile, out RaycastHit wallHit)
         {
             if (pointIndex <= 0)
             {
@@ -154,7 +152,7 @@ namespace Throwing
         }
 
 
-        private bool CheckWallOverlap(int pointIndex, Projectile projectile, out RaycastHit wallHit)
+        private bool CheckWallOverlap(int pointIndex, Projectile.Projectile projectile, out RaycastHit wallHit)
         {
             var point = lineRenderer.GetPosition(pointIndex);
             var size = Physics.OverlapSphereNonAlloc(point, projectile.collisionOverlapSphereRadius, _collisions,

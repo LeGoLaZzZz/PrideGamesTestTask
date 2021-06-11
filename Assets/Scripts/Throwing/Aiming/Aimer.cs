@@ -1,10 +1,8 @@
-using System;
 using PlayerInput;
 using Throwing.Trajectory;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Throwing
+namespace Throwing.Aiming
 {
     public class Aimer : MonoBehaviour
     {

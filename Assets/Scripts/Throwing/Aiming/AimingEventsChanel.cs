@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Throwing
+namespace Throwing.Aiming
 {
     [Serializable]
     public class AimingStartedEvent : UnityEvent

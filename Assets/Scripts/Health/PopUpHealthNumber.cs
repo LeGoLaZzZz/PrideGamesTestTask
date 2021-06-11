@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Fighting
+namespace Health
 {
     public class PopUpHealthNumber : MonoBehaviour
     {

@@ -1,9 +1,6 @@
-using System;
-using Throwing.Trajectory;
 using UnityEditor;
-using UnityEngine;
 
-namespace Throwing.Editor
+namespace Throwing.Aiming.Editor
 {
     [CustomEditor(typeof(Aimer))]
     public class AimerCustomEditor : UnityEditor.Editor

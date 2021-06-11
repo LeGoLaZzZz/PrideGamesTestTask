@@ -1,15 +1,15 @@
 using UnityEngine;
 
-namespace Fighting
+namespace DamageDealing
 {
-    [RequireComponent(typeof(Health))]
+    [RequireComponent(typeof(Health.Health))]
     public class DamageReceiver : MonoBehaviour
     {
         [SerializeField] private TeamConfig team;
 
         public TeamConfig Team => team;
         
-        private Health _health;
+        private Health.Health _health;
         
         
         public void GetDamage(DamageBundle damageBundle)
@@ -23,7 +23,7 @@ namespace Fighting
 
         private void Awake()
         {
-            _health = GetComponent<Health>();
+            _health = GetComponent<Health.Health>();
         }
     }
 }

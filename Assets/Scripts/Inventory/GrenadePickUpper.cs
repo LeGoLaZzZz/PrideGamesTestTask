@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace Throwing
+namespace Inventory
 {
     public class GrenadePickUpper : MonoBehaviour
     {

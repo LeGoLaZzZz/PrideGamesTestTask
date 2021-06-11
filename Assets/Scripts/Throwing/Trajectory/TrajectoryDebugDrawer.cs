@@ -1,3 +1,5 @@
+using Grenades;
+using Throwing.Aiming;
 using Throwing.Thrower;
 using UnityEngine;
 
@@ -34,7 +36,7 @@ namespace Throwing.Trajectory
             return formula;
         }
 
-        protected override Projectile GetProjectile()
+        protected override Projectile.Projectile GetProjectile()
         {
             return grenadeConfig.GetProjectilePrefab();
         }

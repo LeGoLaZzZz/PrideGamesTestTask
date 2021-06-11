@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Fighting
+namespace DamageDealing
 {
     public class Damager : MonoBehaviour
     {

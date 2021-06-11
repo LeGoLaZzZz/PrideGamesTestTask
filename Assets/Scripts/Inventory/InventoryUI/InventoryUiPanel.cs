@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Grenades;
 using UnityEngine;
 
-namespace Throwing.View
+namespace Inventory.InventoryUI
 {
     public class InventoryUiPanel : MonoBehaviour
     {

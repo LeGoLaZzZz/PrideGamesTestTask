@@ -2,13 +2,13 @@ using Throwing.Thrower;
 using Throwing.Trajectory;
 using UnityEngine;
 
-namespace Throwing
+namespace Throwing.Aiming
 {
     public class PlayerTrajectoryDrawer : TrajectoryDrawer
     {
         [Header("Player Links")]
         [SerializeField] private Aimer aimer;
-        [SerializeField] private Inventory inventory;
+        [SerializeField] private Inventory.Inventory inventory;
 
 
         //player aims by angle, not by target
@@ -33,7 +33,7 @@ namespace Throwing
             return aimer.trajectoryFormula;
         }
 
-        protected override Projectile GetProjectile()
+        protected override Projectile.Projectile GetProjectile()
         {
             return inventory.GetSelected().GetProjectilePrefab();
         }

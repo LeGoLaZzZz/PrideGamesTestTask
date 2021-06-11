@@ -1,6 +1,7 @@
+using Health;
 using UnityEngine;
 
-namespace Fighting
+namespace Enemy
 {
     public class EnemySpawner : MonoBehaviour
     {
@@ -23,7 +24,7 @@ namespace Fighting
             enemy.transform.position = spawnPoint.position;
             spawned = enemy;
             isSpawned = true;
-            spawned.GetComponent<Health>().deathEvent.AddListener(OnDeath);
+            spawned.GetComponent<Health.Health>().deathEvent.AddListener(OnDeath);
         }
 
 
@@ -45,7 +46,7 @@ namespace Fighting
 
         private void OnDeath(DeathEventArgs arg0)
         {
-            spawned.GetComponent<Health>().deathEvent.RemoveListener(OnDeath);
+            spawned.GetComponent<Health.Health>().deathEvent.RemoveListener(OnDeath);
             spawned = null;
             isSpawned = false;
             _lastCooldownTime = Time.time;

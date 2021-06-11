@@ -1,4 +1,4 @@
-namespace Fighting
+namespace DamageDealing
 {
     [System.Flags]
     public enum Team

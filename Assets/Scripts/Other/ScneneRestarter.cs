@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace DefaultNamespace
+namespace Other
 {
     public class ScneneRestarter : MonoBehaviour
     {

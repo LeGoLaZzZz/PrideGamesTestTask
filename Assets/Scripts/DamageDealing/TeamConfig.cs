@@ -1,8 +1,6 @@
-using System;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
-namespace Fighting
+namespace DamageDealing
 {
     [CreateAssetMenu(fileName = "TeamConfig", menuName = "Fighting/TeamConfig", order = 0)]
     public class TeamConfig : ScriptableObject

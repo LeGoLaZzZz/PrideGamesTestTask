@@ -1,7 +1,8 @@
-using Fighting;
+using DamageDealing;
+using Throwing.Projectile;
 using UnityEngine;
 
-namespace Throwing
+namespace Grenades
 {
     [RequireComponent(typeof(Projectile))]
     [RequireComponent(typeof(Damager))]

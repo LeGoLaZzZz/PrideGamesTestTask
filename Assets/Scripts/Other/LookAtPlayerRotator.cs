@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Other
 {
     public class LookAtPlayerRotator : MonoBehaviour
     {
