@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Yellow grenade
   description: Yellow grenade
+  icon: {r: 0.9339623, g: 0.8761965, b: 0.013216423, a: 1}
   prefab: {fileID: 5653414854475072626, guid: 7e2896d79057dc54aacf7b5e1934f7d5, type: 3}
   damage: 20
   radius: 5

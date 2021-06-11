@@ -18,7 +18,7 @@ namespace Throwing.Trajectory
 
         public override Vector3 GetPositionByTarget(Vector3 targetPoint, Vector3 startPoint, float timeMoment)
         {
-            SpeedBallisticTrajectory.CalculateGravityAndYSpeed(startPoint, targetPoint, GetSpeedByRange(maxRange),
+            SpeedBallisticTrajectory.CalculateGravityAndDirection(startPoint, targetPoint, GetSpeedByRange(maxRange),
                 maxHeight, out var direction, out var gravity);
 
             return GetPositionByAngle(direction, startPoint, gravity, timeMoment);
@@ -61,12 +61,5 @@ namespace Throwing.Trajectory
             return Mathf.Sqrt(height * gravity * 2 / sin / sin);
         }
 
-        private float GetAngleByRange(float range)
-        {
-            //a=arcsin(s*g/v/v)/2
-            var speed = GetSpeedByRange(range);
-
-            return Mathf.Asin(range * gravity / speed / speed) / 2 * Mathf.Rad2Deg;
-        }
     }
 }
