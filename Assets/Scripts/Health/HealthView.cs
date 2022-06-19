@@ -1,9 +1,8 @@
-using System;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Fighting
+namespace Health
 {
     public class HealthView : MonoBehaviour
     {

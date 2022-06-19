@@ -1,9 +1,6 @@
-using System;
-using Fighting;
-using TMPro;
-using UnityEngine;
+using Other;
 
-namespace DefaultNamespace
+namespace Health
 {
     public class PlayerHealthView : HealthView
     {

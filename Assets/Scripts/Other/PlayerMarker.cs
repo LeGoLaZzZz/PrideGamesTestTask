@@ -1,12 +1,11 @@
-using Fighting;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Other
 {
     public class PlayerMarker : MonoBehaviour
     {
-       [SerializeField] private Health playerHealth;
+       [SerializeField] private Health.Health playerHealth;
 
-       public Health PlayerHealth => playerHealth;
+       public Health.Health PlayerHealth => playerHealth;
     }
 }

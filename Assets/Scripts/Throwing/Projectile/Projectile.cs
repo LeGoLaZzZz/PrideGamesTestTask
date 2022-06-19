@@ -1,13 +1,12 @@
 using System;
-using Fighting;
+using DamageDealing;
 using Throwing.Thrower;
 using Throwing.Trajectory;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
-using static Throwing.ProjectileThrowFinishedEventArgs;
+using static Throwing.Projectile.ProjectileThrowFinishedEventArgs;
 
-namespace Throwing
+namespace Throwing.Projectile
 {
     [Serializable]
     public class ProjectileThrowFinishedEvent : UnityEvent<ProjectileThrowFinishedEventArgs>

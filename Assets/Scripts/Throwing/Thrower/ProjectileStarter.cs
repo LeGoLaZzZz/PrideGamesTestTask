@@ -1,8 +1,6 @@
-using PlayerInput;
-using Throwing.Thrower;
 using UnityEngine;
 
-namespace Throwing
+namespace Throwing.Thrower
 {
     public class ProjectileStarter : MonoBehaviour
     {

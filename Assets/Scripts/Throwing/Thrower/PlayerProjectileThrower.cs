@@ -1,12 +1,13 @@
 using PlayerInput;
+using Throwing.Aiming;
 using UnityEngine;
 
-namespace Throwing
+namespace Throwing.Thrower
 {
     public class PlayerProjectileThrower : ProjectileThrower
     {
         [SerializeField] private Aimer aimer;
-        [SerializeField] private Inventory inventory;
+        [SerializeField] private Inventory.Inventory inventory;
 
         public override void Throw()
         {

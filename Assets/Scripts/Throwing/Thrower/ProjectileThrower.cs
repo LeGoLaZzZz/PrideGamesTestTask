@@ -1,8 +1,7 @@
-using Fighting;
-using PlayerInput;
+using DamageDealing;
 using UnityEngine;
 
-namespace Throwing
+namespace Throwing.Thrower
 {
     public abstract class ProjectileThrower : MonoBehaviour
     {
